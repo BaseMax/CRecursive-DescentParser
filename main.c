@@ -71,7 +71,7 @@ double parseFactor()
 		printf("Excepted digit but found %c\n", *x);
 }
 
-double main()
+void test()
 {
 	double result;
 
@@ -92,8 +92,19 @@ double main()
 
 	x = "2*(3+4)";
 	result = parseSum();
+}
 
-	printf("%f\n", result);
+int main()
+{
+	double result;
+	x = malloc(sizeof(char) * 200);
+
+	while(1) {
+		printf("calc> ");
+		scanf("%s", x);
+		result = parseSum();
+		printf("%f\n", result);
+	}
 
 	return 0;
 }

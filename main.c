@@ -8,24 +8,24 @@ char *x;
 
 double parseSum()
 {
-	double pro1 = parseProduct();
+	double left = parseProduct();
 	while (*x == '+') {
 		++x;
-		double pro2 = parseProduct();
-		pro1 = pro1 + pro2;
+		double right = parseProduct();
+		left = left + right;
 	}
-	return pro1;
+	return left;
 }
 
 double parseProduct()
 {
-	double fac1 = parseFactor();
+	double left = parseFactor();
 	while (*x == '*') {
 		++x;
-		double fac2 = parseFactor();
-		fac1 = fac1 * fac2;
+		double right = parseFactor();
+		left = left * right;
 	}
-	return fac1;
+	return left;
 }
 
 double parseFactor()
@@ -54,6 +54,8 @@ double main()
 
 	x = "2*(3+4)";
 	result = parseSum();
+
+	printf("%f\n", result);
 
 	return 0;
 }

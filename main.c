@@ -1,47 +1,50 @@
-int parseSum();
-int parseProduct();
-int parseFactor();
+#include <stdio.h>
+#include <stdlib.h>
+
+double parseSum();
+double parseProduct();
+double parseFactor();
 char *x;
 
-int parseSum()
+double parseSum()
 {
-	int pro1 = parseProduct();
+	double pro1 = parseProduct();
 	while (*x == '+') {
 		++x;
-		int pro2 = parseProduct();
+		double pro2 = parseProduct();
 		pro1 = pro1 + pro2;
 	}
 	return pro1;
 }
 
-int parseProduct()
+double parseProduct()
 {
-	int fac1 = parseFactor();
+	double fac1 = parseFactor();
 	while (*x == '*') {
 		++x;
-		int fac2 = parseFactor();
+		double fac2 = parseFactor();
 		fac1 = fac1 * fac2;
 	}
 	return fac1;
 }
 
-int parseFactor()
+double parseFactor()
 {
 	if (*x >= '0' && *x <= '9')
 		return *x++ - '0';
 	else if (*x == '(') {
 		++x; // except '('
-		int sum = parseSum();
+		double sum = parseSum();
 		++x; // except ')'
-	`	return sum;
+		return sum;
 	}
 	else
 		printf("Excepted digit but found %c\n", *x);
 }
 
-int main()
+double main()
 {
-	int result;
+	double result;
 
 	x = "2*3+4*5";
 	result = parseFactor();

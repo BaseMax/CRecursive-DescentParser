@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// global variable
+char *x;
+
+// functions
+double parseNumber();
 double parseSum();
 double parseProduct();
 double parseFactor();
-char *x;
 
 double parseSum()
 {
@@ -28,10 +32,35 @@ double parseProduct()
 	return left;
 }
 
+double parseNumber()
+{
+	double number = 0;
+	// return *x++ - '0';
+
+	while(*x >= '0' && *x <= '9') {
+		number = number * 10;
+		number = number + *x - '0';
+		++x;
+	}
+
+	if (*x == '.') {
+		++x; // except '.'
+		double weight = 1;
+		while (*x > '0' && *x <= '9') {
+			weight = weight/10;
+			double scaled = (*x - '0') * weight;
+			number = number + scaled;
+			++x;
+		}
+	}
+
+	return number;
+}
+
 double parseFactor()
 {
 	if (*x >= '0' && *x <= '9')
-		return *x++ - '0';
+		return parseNumber();
 	else if (*x == '(') {
 		++x; // except '('
 		double sum = parseSum();
@@ -45,6 +74,15 @@ double parseFactor()
 double main()
 {
 	double result;
+
+	x = "5";
+	result = parseNumber();
+
+	x = "110";
+	result = parseNumber();
+
+	x = "3.14";
+	result = parseNumber();
 
 	x = "2*3+4*5";
 	result = parseFactor();

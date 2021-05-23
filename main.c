@@ -6,11 +6,11 @@ char *x;
 
 // functions
 double parseNumber();
-double parseSum();
+double parseFormulae();
 double parseProduct();
 double parseFactor();
 
-double parseSum()
+double parseFormulae()
 {
 	double left = parseProduct();
 
@@ -83,7 +83,7 @@ double parseFactor()
 		return parseNumber();
 	else if (*x == '(') {
 		++x; // except '('
-		double sum = parseSum();
+		double sum = parseFormulae();
 		++x; // except ')'
 		return sum;
 	}
@@ -111,7 +111,7 @@ void test()
 	result = parseProduct();
 
 	x = "2*(3+4)";
-	result = parseSum();
+	result = parseFormulae();
 }
 
 int main()
@@ -122,7 +122,7 @@ int main()
 	while(1) {
 		printf("calc> ");
 		scanf("%s", x);
-		result = parseSum();
+		result = parseFormulae();
 		printf("%f\n", result);
 	}
 

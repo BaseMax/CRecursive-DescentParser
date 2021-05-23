@@ -13,22 +13,42 @@ double parseFactor();
 double parseSum()
 {
 	double left = parseProduct();
+
 	while (*x == '+') {
 		++x;
 		double right = parseProduct();
 		left = left + right;
 	}
+
+	while (*x == '-') {
+		++x;
+		double right = parseProduct();
+		left = left - right;
+	}
+
 	return left;
 }
 
 double parseProduct()
 {
 	double left = parseFactor();
+
 	while (*x == '*') {
 		++x;
 		double right = parseFactor();
 		left = left * right;
 	}
+
+	while (*x == '/') {
+		++x;
+		double right = parseFactor();
+		if(right == 0) {
+			printf("runtime math error: cannot divide by zero\n");
+			return left;
+		}
+		left = left / right;
+	}
+
 	return left;
 }
 
